@@ -1,0 +1,16 @@
+{
+  "left_arm_shoulder_pan": 12.53,
+  "left_arm_shoulder_lift": -103.78,
+  "left_arm_elbow_flex": 98.37,
+  "left_arm_wrist_flex": 76.0,
+  "left_arm_wrist_roll": -3.47,
+  "left_arm_gripper": -63.12,
+  "right_arm_shoulder_pan": -0.92,
+  "right_arm_shoulder_lift": -102.59,
+  "right_arm_elbow_flex": 96.18,
+  "right_arm_wrist_flex": 62.46,
+  "right_arm_wrist_roll": -5.58,
+  "right_arm_gripper": -62.15,
+  "head_motor_1": -7.41,
+  "head_motor_2": 61.17
+}

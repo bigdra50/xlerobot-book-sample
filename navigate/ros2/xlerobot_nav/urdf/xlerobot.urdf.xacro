@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!-- 公式の XLeRobot（台車、両腕、head）と、中段トレイに固定した iPad。base_link は床の上の、その場で回るときの回転の中心に置く -->
+<robot name="xlerobot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <link name="base_link"/>
+
+  <!-- 床の上の台車の中心（公式の URDF の base_link）。下の xyz と rpy は筆者の機体の値で、自分の機体で測り直す。
+       回転の中心から台車の中心までの位置は、iPad の取り付けの位置（下の pocketsensor_device の xyz）と、
+       iPad を当てた台車の面の寸法から求める。筆者は iPad を中段トレイの床に立て、背面を前の壁の内側（台車の中心から x = 0.1496 m）に、
+       左端（正面から見て右）を前左の角の曲面の始まり（y = 0.1663 m）に当てた。壁に平らに当たるので、台車の向きは iPad の yaw と同じにする。
+       高さは合わせていない。床に立つと公式のモデルではレンズが 0.573 m になり、測った 0.53 m と 4.3 cm 食い違う -->
+  <link name="cart_link"/>
+  <joint name="cart_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="cart_link"/>
+    <origin xyz="-0.0159 -0.0641 0" rpy="0 0 0.0524"/>
+  </joint>
+
+  <!-- 台車と腕と head は公式の URDF から生成する（urdf/make_official_body.py）。関節の角度は host_bridge が /joint_states に出す -->
+  <xacro:include filename="$(find xlerobot_nav)/urdf/official/xlerobot_body.xacro"/>
+  <xacro:xlerobot_body parent="cart_link"/>
+
+  <xacro:include filename="$(find pocketsensor_ros)/urdf/pocketsensor.urdf.xacro"/>
+  <!-- iPad の取り付けの位置と向き。筆者の機体の値で、自分の機体で測り直す。
+       xyz は、その場で回るときの回転の中心（床の上）からレンズまでの前、左、上 [m]。巻き尺で測れる。
+       rpy はレンズの向きで、この値は前へ 2.25° 下向き、左へ 3.0° の yaw。取り付けが水平で正面向きなら 0 0 0 から始める -->
+  <xacro:pocketsensor_device name="pocketsensor" parent="base_link" xyz="0.128 0.085 0.53" rpy="-0.0040 0.0393 0.0524"/>
+
+  <!-- iPad の本体の見た目。レンズ（pocketsensor_link）を基準に置く -->
+  <xacro:include filename="$(find xlerobot_nav)/urdf/ipad_pro_11.xacro"/>
+  <xacro:ipad_pro_11_body name="pocketsensor"/>
+</robot>

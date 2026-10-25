@@ -1,0 +1,55 @@
+xlerobot-book-sample
+Copyright 2026 Ryudai Kimura
+
+本リポジトリは Apache License 2.0 で公開する（本文は LICENSE）。
+次のファイルは、第三者のファイル（どれも Apache License 2.0）を同梱したもの、またはそれを元に作ったものである。
+
+----------------------------------------------------------------------
+NektoDron/lekiwi-vr-teleop
+https://github.com/NektoDron/lekiwi-vr-teleop
+Copyright 2026 Andrey Demidov
+ライセンス本文: plugins/lerobot_teleoperator_xlerobot_quest/LICENSE-lekiwi
+
+  plugins/lerobot_teleoperator_xlerobot_quest/src/lerobot_teleoperator_xlerobot_quest/ik/vendor/so101_chain.py
+    lekiwi_vr_teleop/so101_chain.py（コミット 4e1350c、2026-08-04）。無改変。
+    詳細は plugins/lerobot_teleoperator_xlerobot_quest/VENDOR.md
+
+----------------------------------------------------------------------
+TheRobotStudio/SO-ARM100
+https://github.com/TheRobotStudio/SO-ARM100
+ライセンス本文: urdf/LICENSE-SO-ARM100
+
+  urdf/assets/
+    Simulation/SO101/assets/ の STL 13 個。無改変。
+  urdf/xlerobot_so101.urdf
+    Simulation/SO101/so101_new_calib.urdf の腕を、下の XLeRobot の URDF と組み合わせた。
+    変更の内容は urdf/README.md
+
+----------------------------------------------------------------------
+Vector-Wangel/XLeRobot
+https://github.com/Vector-Wangel/XLeRobot
+ライセンス本文: urdf/LICENSE-XLeRobot、navigate/ros2/xlerobot_nav/urdf/official/LICENSE
+
+  urdf/xlerobot_meshes/
+    simulation/Maniskill/assets/xlerobot/meshes/ の STL 9 個（コミット 3d14695）。無改変。
+  urdf/xlerobot_so101.urdf
+    simulation/Maniskill/assets/xlerobot/xlerobot.urdf の車体と head の寸法を使った。
+    変更の内容は urdf/README.md
+  navigate/ros2/xlerobot_nav/urdf/official/
+    同じ URDF と STL（コミット 467810d、2025-10-06）。
+    シミュレーター用の仮想関節 3 つを外し、xacro のマクロにした。STL は無改変。
+  host/xlerobot_host.py
+    software/plugins/lerobot_robot_xlerobot/lerobot_robot_xlerobot/xlerobot_host.py を元に、
+    引数での設定、rest の姿勢、車輪のサーバーを追加した。
+  navigate/gate/drive_base.py
+    同じディレクトリの xlerobot.py にある XLerobot._body_to_wheel_raw を元に、
+    同じ式と定数を numpy なしで書いた。
+
+----------------------------------------------------------------------
+ros-navigation/navigation2（Nav2）
+https://github.com/ros-navigation/navigation2
+ライセンス: Apache License 2.0
+
+  navigate/ros2/xlerobot_nav/config/navigate_to_pose.xml
+    nav2_bt_navigator/behavior_trees/navigate_to_pose_w_replanning_and_recovery.xml（jazzy）を元に、
+    後退と、コントローラとプランナーの選択を外し、再試行の回数と待つ時間を減らした。

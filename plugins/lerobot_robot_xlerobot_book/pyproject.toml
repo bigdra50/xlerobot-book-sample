@@ -1,0 +1,21 @@
+[project]
+name = "lerobot_robot_xlerobot_book"
+version = "0.1.0"
+description = "公式 XLeRobot の client を継ぎ、lerobot-record と lerobot-rollout で使えるようにする plugin"
+license = "Apache-2.0"
+requires-python = ">=3.12"
+# 名前が lerobot_robot_ で始まることが本体。
+# lerobot v0.6.1 は起動時にこの接頭辞を持つ distribution を import する
+# （lerobot.utils.import_utils.register_third_party_plugins）。
+# cv2 は lerobot が入れる opencv-python-headless を使う。
+# opencv-python を足すと同じ cv2/ を別の版で上書きし、lerobot が指定した版の範囲を外れる
+# 公式の lerobot_robot_xlerobot も要るが、PyPI に無いのでここには書けない。
+# install.sh が公式リポジトリを clone して先に入れる
+dependencies = ["lerobot==0.6.1", "pyzmq"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/lerobot_robot_xlerobot_book"]

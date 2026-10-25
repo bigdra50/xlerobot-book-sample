@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!-- iPad Pro 11（第 2 世代）の本体の見た目と当たり判定。pocketsensor_device の ${name}_link（背面の広角カメラのレンズ）に固定する。
+     横置きでカメラ群を上にした置き方を前提にする。${name}_link の x はレンズの向き（背面から外）、y は左、z は上。
+     寸法は Apple の寸法図（Accessory Design Guidelines の iPad Pro 11-inch (3rd generation)、2021-04-23）から取った。
+     第 2 世代の図は公開が終わっている。第 3 世代とは外形と背面のカメラの配置が同じなので、その値を使う -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:macro name="ipad_pro_11_body" params="name">
+    <xacro:property name="w" value="0.2476"/>
+    <xacro:property name="h" value="0.1785"/>
+    <xacro:property name="t" value="0.00595"/>
+    <!-- 画面の側から見た、上端と左端から広角カメラの中心まで。カメラ群は左上の角にある -->
+    <xacro:property name="lens_from_top" value="0.01312"/>
+    <xacro:property name="lens_from_left" value="0.02494"/>
+    <!-- カメラの出っ張りは、上端と左端から 3.85〜32.54 mm の範囲にあり、背面から 1.91 mm 出る -->
+    <xacro:property name="bump_from_edge" value="0.00385"/>
+    <xacro:property name="bump" value="0.02869"/>
+    <xacro:property name="bump_t" value="0.00191"/>
+
+    <material name="${name}_space_gray">
+      <color rgba="0.35 0.36 0.38 1"/>
+    </material>
+    <material name="${name}_black">
+      <color rgba="0.02 0.02 0.02 1"/>
+    </material>
+
+    <link name="${name}_body">
+      <visual>
+        <origin xyz="${-bump_t - t / 2} ${lens_from_left - w / 2} ${lens_from_top - h / 2}"/>
+        <geometry>
+          <box size="${t} ${w} ${h}"/>
+        </geometry>
+        <material name="${name}_space_gray"/>
+      </visual>
+      <visual>
+        <origin xyz="${-bump_t / 2} ${lens_from_left - bump_from_edge - bump / 2} ${lens_from_top - bump_from_edge - bump / 2}"/>
+        <geometry>
+          <box size="${bump_t} ${bump} ${bump}"/>
+        </geometry>
+        <material name="${name}_black"/>
+      </visual>
+      <collision>
+        <origin xyz="${-bump_t - t / 2} ${lens_from_left - w / 2} ${lens_from_top - h / 2}"/>
+        <geometry>
+          <box size="${t + bump_t} ${w} ${h}"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <origin xyz="${-bump_t - t / 2} ${lens_from_left - w / 2} ${lens_from_top - h / 2}"/>
+        <mass value="0.471"/>
+        <inertia ixx="${0.471 * (w * w + h * h) / 12}" iyy="${0.471 * (t * t + h * h) / 12}" izz="${0.471 * (t * t + w * w) / 12}"
+                 ixy="0" ixz="0" iyz="0"/>
+      </inertial>
+    </link>
+
+    <joint name="${name}_body_joint" type="fixed">
+      <parent link="${name}_link"/>
+      <child link="${name}_body"/>
+    </joint>
+  </xacro:macro>
+</robot>

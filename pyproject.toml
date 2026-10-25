@@ -1,0 +1,34 @@
+[project]
+name = "xlerobot-book-sample"
+version = "0.1.0"
+description = "『XLeRobotで始める模倣学習』のサンプルコード"
+license = "Apache-2.0"
+requires-python = ">=3.12,<3.13"
+# lerobot 本体はここで入れない。
+# 各 plugin が lerobot==0.6.1（PyPI）を依存として持つ。
+# install.sh が lerobot[feetech,core-scripts,training]==0.6.1、公式 XLeRobot の plugin、本書の plugin 2 本を同じ venv へ入れる。
+dependencies = []
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[tool.uv.workspace]
+members = ["plugins/*"]
+
+[tool.uv.sources]
+lerobot_robot_xlerobot_book = { workspace = true }
+lerobot_teleoperator_xlerobot_quest = { workspace = true }
+
+[tool.pytest.ini_options]
+testpaths = ["plugins/lerobot_robot_xlerobot_book/tests", "plugins/lerobot_teleoperator_xlerobot_quest/tests"]
+markers = [
+  "ik: jax と pyroki が要るテスト（lerobot_teleoperator_xlerobot_quest[vr] を入れた環境でだけ走る）",
+]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint.isort]
+# scripts/ が同じディレクトリから読むモジュールは、外部のパッケージと分けて並べる
+known-first-party = ["dataset_io"]

@@ -1,0 +1,172 @@
+{
+  "configById": {
+    "3D!map": {
+      "followTf": "map",
+      "followMode": "follow-none",
+      "scene": {
+        "transforms": {
+          "showLabel": false,
+          "axisScale": 0.2,
+          "enablePreloading": true
+        },
+        "meshUpAxis": "z_up"
+      },
+      "cameraState": {
+        "distance": 7.5,
+        "perspective": true,
+        "phi": 30,
+        "thetaOffset": 90,
+        "target": [
+          -0.4,
+          -0.5,
+          0.3
+        ],
+        "targetOffset": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
+        "fovy": 45,
+        "near": 0.01,
+        "far": 5000
+      },
+      "transforms": {},
+      "topics": {
+        "/cloud_map_dense": {
+          "visible": true,
+          "colorMode": "rgb",
+          "colorField": "rgb",
+          "pointSize": 3,
+          "pointShape": "square"
+        },
+        "/cloud_map": {
+          "visible": true,
+          "colorMode": "rgb",
+          "colorField": "rgb",
+          "pointSize": 5,
+          "pointShape": "square"
+        },
+        "/map": {
+          "visible": true,
+          "colorMode": "custom",
+          "minColor": "#00000000",
+          "maxColor": "#ff3b3080",
+          "unknownColor": "#00000000",
+          "invalidColor": "#00000000"
+        },
+        "/mapPath": {
+          "visible": true,
+          "type": "line",
+          "lineWidth": 0.02,
+          "gradient": [
+            "#00c8ffff",
+            "#ff3b30ff"
+          ]
+        },
+        "/robot_description": {
+          "visible": true
+        },
+        "/scan": {
+          "visible": true,
+          "colorMode": "flat",
+          "flatColor": "#ff3b30ff",
+          "pointSize": 5
+        },
+        "/plan": {
+          "visible": true,
+          "type": "line",
+          "lineWidth": 0.03,
+          "gradient": [
+            "#34c759ff",
+            "#34c759ff"
+          ]
+        },
+        "/local_costmap/costmap": {
+          "visible": false,
+          "colorMode": "costmap"
+        },
+        "/global_costmap/costmap": {
+          "visible": false,
+          "colorMode": "costmap"
+        },
+        "/patrol/waypoints": {
+          "visible": true
+        }
+      },
+      "layers": {
+        "grid": {
+          "layerId": "foxglove.Grid",
+          "instanceId": "grid",
+          "label": "Grid (0.5 m)",
+          "visible": true,
+          "frameLocked": true,
+          "size": 8,
+          "divisions": 16,
+          "lineWidth": 1,
+          "color": "#248eff40",
+          "position": [
+            0,
+            0,
+            -0.01
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "order": 1
+        }
+      }
+    },
+    "Image!ipad": {
+      "imageMode": {
+        "imageTopic": "/pocketsensor/color/image/compressed"
+      }
+    },
+    "Image!head": {
+      "imageMode": {
+        "imageTopic": "/xlerobot/head/image/compressed"
+      }
+    },
+    "Image!left_wrist": {
+      "imageMode": {
+        "imageTopic": "/xlerobot/left_wrist/image/compressed"
+      }
+    },
+    "Image!right_wrist": {
+      "imageMode": {
+        "imageTopic": "/xlerobot/right_wrist/image/compressed"
+      }
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "playbackConfig": {
+    "speed": 1
+  },
+  "layout": {
+    "direction": "row",
+    "first": "3D!map",
+    "splitPercentage": 60,
+    "second": {
+      "direction": "column",
+      "splitPercentage": 50,
+      "first": {
+        "direction": "row",
+        "first": "Image!ipad",
+        "second": "Image!head"
+      },
+      "second": {
+        "direction": "row",
+        "first": "Image!left_wrist",
+        "second": "Image!right_wrist"
+      }
+    }
+  }
+}
